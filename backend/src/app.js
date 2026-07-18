@@ -10,14 +10,28 @@ const cors =require('cors');
 
 const app = express();
 // Allow frontend dev servers on 5176 and 5177 (adjust or use env var for production)
+const allowed = [
+    "http://localhost:5176",
+    "http://localhost:5177",
+    "https://foodgram-frontend-3nbq.onrender.com"
+];
+
 app.use(cors({
-    origin: [
-        "http://localhost:5176",
-        "http://localhost:5177",
-        "https://foodgram-frontend-3nbq.onrender.com"
-    ],
-    credentials: true
+    origin: function (origin, callback) {
+        if (!origin) return callback(null, true);
+
+        if (allowed.includes(origin)) {
+            return callback(null, true);
+        }
+
+        return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+app.options("*", cors());
 app.use(cookieParser());
 app.use(express.json());
 
