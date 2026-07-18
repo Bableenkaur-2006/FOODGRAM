@@ -19,7 +19,7 @@ const PartnerRegister = () => {
         // Backend expects fields named `name` and `phone` — map accordingly and combine country code
         const phone = `${country}${contactNumber}`;
 
-        axios.post('https://foodgram-backend-f193.onrender.com/api/auth/food-partner/register', {
+        axios.post('https://foodgram-backend-xtmt.onrender.com/api/auth/food-partner/register', {
             name: businessName,
             ownerName,
             phone,
@@ -33,8 +33,7 @@ const PartnerRegister = () => {
         })
         .catch(error => {
             console.log("Registration Error:", error.response?.data || error.message);
-            alert(error.response?.data?.
-message || "Registration failed");
+            alert(error.response?.data?.message || "Registration failed");
         });
     };
     return (
