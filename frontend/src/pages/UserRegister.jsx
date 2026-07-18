@@ -1,6 +1,6 @@
 import React from 'react'
 import '../styles/auth.css'
-import axios from 'axios'
+import api from "../config/axios";
 import { useNavigate } from 'react-router-dom'
 
 const UserRegister = () => {
@@ -16,7 +16,7 @@ const UserRegister = () => {
     const password = e.target.password.value;
 
     try {
-      const response = await axios.post(
+      const response = await api.post(
         "https://foodgram-backend-xtmt.onrender.com/api/auth/user/register",
         {
           fullName: firstName + " " + lastName,

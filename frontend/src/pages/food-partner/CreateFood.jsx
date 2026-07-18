@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import '../../styles/create-food.css'
-import axios from 'axios'
+import api from "../../config/axios";
 import { useNavigate, useParams } from 'react-router-dom'
 
 const CreateFood = () => {
@@ -54,7 +54,7 @@ const CreateFood = () => {
 
         setLoading(true)
         try {
-            const res = await axios.post('https://foodgram-backend-xtmt.onrender.com/api/food', fd, {
+            const res = await api.post('https://foodgram-backend-xtmt.onrender.com/api/food', fd, {
                 withCredentials: true,
                 headers: { 'Content-Type': 'multipart/form-data' },
             })

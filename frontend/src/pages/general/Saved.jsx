@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import '../../styles/reels.css'
 import '../../styles/profile.css'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+import api from "../../config/axios";
 
 // Clean Saved.jsx: load savedVideos, sync with server to remove deleted items, persist, and render
 const Saved = () => {
@@ -19,7 +19,7 @@ const Saved = () => {
         // If a userId is provided in the route, prefer the server's per-user saved list
         if (userId) {
           try {
-            const resp = await axios.get(`/api/user/${userId}/saved`, { withCredentials: true });
+            const resp = await api.get(`/api/user/${userId}/saved`, { withCredentials: true });
             const data = resp && resp.data ? (Array.isArray(resp.data) ? resp.data : (resp.data.saved || resp.data.items || [])) : [];
             if (Array.isArray(data) && data.length) {
               setItems(data.map(i => (i && (i._id || i.id)) ? i : { _id: i }));

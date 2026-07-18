@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import axios from 'axios'
+import api from "../../config/axios";
 import '../../styles/reels.css'
 import '../../styles/profile.css'
 
@@ -73,7 +73,7 @@ const SavedReels = () => {
         if (userId) {
           // Try backend endpoint for user's saved list
           try {
-            const resp = await axios.get(`/api/user/${userId}/saved`, { withCredentials: true });
+            const resp = await api.get(`/api/user/${userId}/saved`, { withCredentials: true });
             const data = resp && resp.data ? (Array.isArray(resp.data) ? resp.data : (resp.data.saved || resp.data.items || [])) : [];
             if (Array.isArray(data) && data.length) {
               setItems(data.map(i => (i && (i._id || i.id)) ? i : { _id: i }));

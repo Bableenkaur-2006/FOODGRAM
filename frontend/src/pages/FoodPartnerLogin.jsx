@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import '../styles/auth.css'
-import axios from 'axios'
+import api from "../config/axios";
 import { useNavigate } from 'react-router-dom'
 
 const PartnerLogin = () => {
@@ -18,7 +18,7 @@ const PartnerLogin = () => {
 
         try {
             console.log('Attempting partner login with:', { email });
-           const response = await axios.post(
+           const response = await api.post(
                 'https://foodgram-backend-xtmt.onrender.com/api/auth/food-partner/login',
                 {
                     email,

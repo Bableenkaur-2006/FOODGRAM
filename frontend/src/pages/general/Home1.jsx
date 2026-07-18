@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from "../../config/axios";
 import '../../styles/reels.css';
 
 const Home1 = () => {
@@ -18,7 +18,7 @@ const Home1 = () => {
 
             for (const path of paths) {
                 try {
-                    const resp = await axios.get(path);
+                    const resp = await api.get(path);
                     const data = resp.data;
                     items = Array.isArray(data) ? data : (data.foodItems || data.videos || data.data || []);
                     if (items && items.length) break; // stop on first successful non-empty result
@@ -186,7 +186,7 @@ const Home1 = () => {
                 return next;
             });
             try {
-                const resp = await axios.post('/api/food/like', { foodId: videoId }, { withCredentials: true });
+                const resp = await api.post('/api/food/like', { foodId: videoId }, { withCredentials: true });
 
                 // If the backend returned an authoritative likeCount, use it to update the UI immediately.
                 if (resp && resp.data && typeof resp.data.likeCount === 'number') {
@@ -195,7 +195,7 @@ const Home1 = () => {
                     // Try to refresh the single item if possible, otherwise refresh the whole feed
                     let refreshed = false;
                     try {
-                        const single = await axios.get(`/api/food/${videoId}`);
+                        const single = await api.get(`/api/food/${videoId}`);
                             if (single && single.data) {
                             const serverItem = Array.isArray(single.data) ? single.data[0] : (single.data.foodItem || single.data.video || single.data);
                                 if (serverItem) {
@@ -281,7 +281,7 @@ const Home1 = () => {
             } catch (e) { /* ignore */ }
 
             try {
-                const resp = await axios.post('/api/food/save', { foodId: videoId }, { withCredentials: true });
+                const resp = await api.post('/api/food/save', { foodId: videoId }, { withCredentials: true });
                 // If server returned authoritative saveCount, use it
                 if (resp && resp.data && typeof resp.data.saveCount === 'number') {
                     const clamp = Math.max(0, Number(resp.data.saveCount));

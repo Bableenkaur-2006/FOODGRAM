@@ -1,6 +1,6 @@
 import React from 'react'
 import '../styles/auth.css'
-import axios from 'axios'
+import api from "../config/axios";
 import {useNavigate} from 'react-router-dom'
 
 const PartnerRegister = () => {
@@ -19,7 +19,7 @@ const PartnerRegister = () => {
         // Backend expects fields named `name` and `phone` — map accordingly and combine country code
         const phone = `${country}${contactNumber}`;
 
-        axios.post('https://foodgram-backend-xtmt.onrender.com/api/auth/food-partner/register', {
+        api.post('https://foodgram-backend-xtmt.onrender.com/api/auth/food-partner/register', {
             name: businessName,
             ownerName,
             phone,

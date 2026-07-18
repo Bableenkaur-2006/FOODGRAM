@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import '../../styles/profile.css'
 import { useParams, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import api from "../../config/axios";
 
 const sampleVideos = [
     'https://www.w3schools.com/html/mov_bbb.mp4',
@@ -40,7 +40,7 @@ const Profile = () => {
             try {
                 console.log('Attempting to fetch videos from', path);
                 const opts = i === 0 ? {} : { withCredentials: true };
-                const response = await axios.get(path, opts);
+                const response = await api.get(path, opts);
                 const payload = response.data;
                 items = Array.isArray(payload) ? payload : (payload.foodItems || payload.videos || payload.data || []);
                 console.log(`Fetched ${items.length} items from ${path}`);
@@ -83,11 +83,11 @@ const Profile = () => {
                     console.log('Fetching profile for ID (public):', id);
                     // Try public fetch first (no credentials) so regular users can view partner pages
                     try {
-                        profileResponse = await axios.get(`/api/food-partner/${id}`);
+                    profileResponse = await api.get(`/api/food-partner/${id}`);
                     } catch (publicErr) {
                         console.warn('Public profile fetch failed, retrying with credentials:', publicErr?.response?.status);
                         // Retry with credentials in case the endpoint is protected
-                        profileResponse = await axios.get(`/api/food-partner/${id}`, { withCredentials: true });
+                        profileResponse = await api.get(`/api/food-partner/${id}`, { withCredentials: true });
                     }
                 } else {
                     // Viewing own profile after login (no ID in URL)
@@ -95,7 +95,7 @@ const Profile = () => {
                     setIsOwnProfile(true);
                         try {
                             // Try the profile endpoint for the authenticated partner
-                            profileResponse = await axios.get('/api/food-partner/profile', { withCredentials: true });
+                            profileResponse = await api.get('/api/food-partner/profile', { withCredentials: true });
                             partnerId = profileResponse.data._id || profileResponse.data.foodPartner?._id;
                             setCurrentPartnerId(partnerId);
                             console.log('Current partner ID from profile endpoint:', partnerId);
@@ -103,14 +103,14 @@ const Profile = () => {
                             console.log('Profile endpoint failed, trying session-based approach:', profileErr.response?.status);
                             try {
                                 // Try to get session info or use a different approach
-                                profileResponse = await axios.get('/api/auth/session', { withCredentials: true });
+                                profileResponse = await api.get('/api/auth/session', { withCredentials: true });
                                 partnerId = profileResponse.data.user?._id || profileResponse.data.partner?._id;
                                 setCurrentPartnerId(partnerId);
                                 console.log('Partner ID from session:', partnerId);
                                 
                                 // Now fetch the actual profile data
                                 if (partnerId) {
-                                    profileResponse = await axios.get(`/api/food-partner/${partnerId}`, { withCredentials: true });
+                                    profileResponse = await api.get(`/api/food-partner/${partnerId}`, { withCredentials: true });
                                 }
                             } catch (sessionErr) {
                                 console.log('Session approach failed, showing error:', sessionErr.response?.status);
@@ -198,7 +198,7 @@ const Profile = () => {
         setDeletingVideoId(videoId);
         try {
             console.log('Deleting video:', videoId);
-            await axios.delete(`/api/food/${videoId}`, { withCredentials: true });
+            await api.delete(`/api/food/${videoId}`, { withCredentials: true });
             
             // Remove video from local state
             setVideos(prev => prev.filter(video => video._id !== videoId));
