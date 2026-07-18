@@ -3,30 +3,40 @@ const userModel=require("../models/user.model")
 const jwt =require("jsonwebtoken");
 
 
-async function authFoodPartnerMiddleWare(req,res,next){
+async function authFoodPartnerMiddleWare(req, res, next) {
 
-    const token =req.cookies.token;
+    console.log("===== AUTH MIDDLEWARE =====");
+    console.log("Cookies:", req.cookies);
 
-    if(!token){
+    const token = req.cookies.token;
+
+    console.log("Token:", token);
+
+    if (!token) {
+        console.log("NO TOKEN FOUND");
         return res.status(401).json({
             message: "Please login first"
-        })
+        });
     }
 
-    try{
-        const decoded=jwt.verify(token,process.env.JWT_SECRET)
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        console.log("Decoded:", decoded);
 
-        const foodPartner= await foodPartnerModel.findById(decoded.id);
+        const foodPartner = await foodPartnerModel.findById(decoded.id);
 
-        req.foodPartner=foodPartner
-        next()
-    }
-    catch(err){
+        console.log("Food Partner:", foodPartner);
+
+        req.foodPartner = foodPartner;
+
+        next();
+
+    } catch (err) {
+        console.log("JWT ERROR:", err);
         return res.status(401).json({
-            message:"Invalid Token"
-        })
+            message: "Invalid Token"
+        });
     }
-
 }
 
 async function authUserMiddeware(req,res,next){
