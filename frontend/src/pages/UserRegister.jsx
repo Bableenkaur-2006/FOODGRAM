@@ -17,7 +17,7 @@ const UserRegister = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:3000/api/auth/user/register',
+        'https://foodgram-backend-f193.onrender.com/api/auth/user/register',
         {
           fullName: firstName + " " + lastName,
           email,

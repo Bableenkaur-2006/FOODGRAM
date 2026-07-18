@@ -54,7 +54,7 @@ const CreateFood = () => {
 
         setLoading(true)
         try {
-            const res = await axios.post('http://localhost:3000/api/food', fd, {
+            const res = await axios.post('https://foodgram-backend-f193.onrender.com/api/food', fd, {
                 withCredentials: true,
                 headers: { 'Content-Type': 'multipart/form-data' },
             })

@@ -19,7 +19,7 @@ const PartnerRegister = () => {
         // Backend expects fields named `name` and `phone` — map accordingly and combine country code
         const phone = `${country}${contactNumber}`;
 
-        axios.post('http://localhost:3000/api/auth/food-partner/register', {
+        axios.post('https://foodgram-backend-f193.onrender.com/api/auth/food-partner/register', {
             name: businessName,
             ownerName,
             phone,
