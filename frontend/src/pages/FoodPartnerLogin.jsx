@@ -18,12 +18,16 @@ const PartnerLogin = () => {
 
         try {
             console.log('Attempting partner login with:', { email });
-            const response = await axios.post('/api/auth/food-partner/login', {
-                email,
-                password
-            }, {
-                withCredentials: true
-            });
+           const response = await axios.post(
+                'https://foodgram-backend-xtmt.onrender.com/api/auth/food-partner/login',
+                {
+                    email,
+                    password
+                },
+                {
+                    withCredentials: true
+                }
+            );
             
             console.log('Partner login successful:', response.data);
             console.log('Navigating to profile page...');
