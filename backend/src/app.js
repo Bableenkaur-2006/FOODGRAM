@@ -14,7 +14,11 @@ app.use(cors({
     origin: function (origin, callback) {
         // allow requests with no origin (like mobile apps or curl)
         if (!origin) return callback(null, true);
-        const allowed = ['http://localhost:5176', 'http://localhost:5177'];
+       const allowed = [
+    'http://localhost:5176',
+    'http://localhost:5177',
+    'https://foodgram-frontend-3nbq.onrender.com'
+];
         if (allowed.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
