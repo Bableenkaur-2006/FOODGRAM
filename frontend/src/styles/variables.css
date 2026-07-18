@@ -1,0 +1,53 @@
+/* Centralized theme variables. Uses system preferences for light/dark. */
+:root{
+  --bg: #ffffff;
+  --card: #ffffff;
+  --text: #0b1b2b;
+  --muted: #6b7280;
+  --accent: #2563eb;
+  --accent-foreground: #ffffff;
+  --input-bg: #f5f7fb;
+  --border: #e6e9ef;
+  --radius: 10px;
+  --shadow: 0 6px 18px rgba(12, 22, 37, 0.06);
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #071017;
+    --card: #07101a;
+    --text: #e6eef8;
+    --muted: #9aa6b2;
+    --accent: #60a5fa;
+    --accent-foreground: #0b1220;
+    --input-bg: #081322;
+    --border: #122233;
+    --radius: 10px;
+    --shadow: 0 8px 28px rgba(2, 6, 11, 0.6);
+  }
+}
+
+/* Manual override when a theme is explicitly set on the document element */
+[data-theme="dark"]{
+  --bg: #071017;
+  --card: #07101a;
+  --text: #e6eef8;
+  --muted: #9aa6b2;
+  --accent: #60a5fa;
+  --accent-foreground: #0b1220;
+  --input-bg: #081322;
+  --border: #122233;
+  --shadow: 0 8px 28px rgba(2, 6, 11, 0.6);
+}
+
+[data-theme="light"]{
+  --bg: #ffffff;
+  --card: #ffffff;
+  --text: #0b1b2b;
+  --muted: #6b7280;
+  --accent: #2563eb;
+  --accent-foreground: #ffffff;
+  --input-bg: #f5f7fb;
+  --border: #e6e9ef;
+  --shadow: 0 6px 18px rgba(12, 22, 37, 0.06);
+}

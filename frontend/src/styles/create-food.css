@@ -1,0 +1,88 @@
+/* Mobile-first styles for CreateFood page. Uses theme variables from variables.css */
+.create-food-page{
+  min-height:100vh;
+  padding:20px;
+  background:var(--bg);
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+}
+
+.create-card{
+  width:100%;
+  max-width:520px;
+  background:var(--card);
+  border-radius:14px;
+  box-shadow:var(--shadow);
+  padding:16px;
+  box-sizing:border-box;
+}
+
+.create-header{
+  margin-bottom:12px;
+}
+.create-header h2{ margin:0; color:var(--text); font-size:18px }
+.create-header p{ margin:6px 0 0; color:var(--muted); font-size:13px }
+
+.form-group{ margin-top:12px; display:flex; flex-direction:column; gap:8px }
+.form-group label{ font-size:13px; color:var(--text); }
+.form-group input[type="text"], .form-group textarea, .form-group input[type="file"]{
+  width:100%;
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:var(--input-bg);
+  color:var(--text);
+  box-sizing:border-box;
+}
+.form-group textarea{ min-height:96px; resize:vertical }
+
+.video-preview{ margin-top:8px; width:100%; height:140px; border-radius:10px; overflow:hidden; background:#000; display:flex; align-items:center; justify-content:center }
+.video-preview video{ width:100%; height:100%; object-fit:contain; display:block; background:black }
+
+/* Custom file input / dropzone */
+.file-input{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.file-input-label{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px dashed var(--border);
+  background:transparent;
+  color:var(--muted);
+  cursor:pointer;
+  transition:all 120ms ease-in-out;
+}
+.file-input-label:hover{ border-color:var(--accent); color:var(--text) }
+.file-input-label.dragging{ border-color:var(--accent); background:rgba(96,165,250,0.06); color:var(--text) }
+.file-input-label svg{ width:20px; height:20px; flex-shrink:0 }
+.file-name{ font-size:13px; color:var(--text); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:200px }
+.file-meta{ margin-left:auto; font-size:12px; color:var(--muted) }
+input[type="file"]{ display:none }
+
+.file-remove{
+  background:transparent;
+  border:0;
+  color:var(--muted);
+  padding:6px 8px;
+  font-size:14px;
+  border-radius:8px;
+  cursor:pointer;
+}
+.file-remove:hover{ color:var(--text); background:rgba(0,0,0,0.04) }
+
+.actions{ display:flex; gap:10px; margin-top:14px; align-items:center }
+.btn{ appearance:none; border:0; padding:10px 14px; border-radius:10px; background:var(--accent); color:var(--accent-foreground); cursor:pointer; font-weight:600 }
+.btn-secondary{ background:transparent; border:1px solid var(--border); color:var(--text) }
+
+.note{ margin-top:10px; color:var(--muted); font-size:13px }
+
+@media(min-width:720px){
+  .create-card{ padding:20px; border-radius:16px }
+  .video-preview{ height:200px }
+}
