@@ -33,12 +33,18 @@ router.post('/like',
 
 )
 
+
 router.post('/save',
     authMiddleware.authUserMiddeware,
     foodController.saveFood
 )
 
 // GET /api/food/:id - fetch single item (public). Delete route is after this so it doesn't clash.
+router.get(
+    '/saved',
+    authMiddleware.authUserMiddeware,
+    foodController.getSavedFood
+);
 router.get('/:id', foodController.getFoodById);
 
 // DELETE /api/food/:id - delete a food item (food partner must be authenticated)

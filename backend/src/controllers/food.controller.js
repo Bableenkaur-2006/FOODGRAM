@@ -220,6 +220,31 @@ async function saveFood(req, res) {
     return res.status(500).json({ message: 'Internal server error' });
   }
 }
+async function getSavedFood(req, res) {
+    try {
+        const userId = req.user._id;
+
+        const saves = await saveModel
+            .find({ user: userId })
+            .populate("food");
+
+        const foodItems = saves
+            .map(s => s.food)
+            .filter(food => food !== null);
+
+        res.status(200).json({
+            message: "Saved food fetched successfully",
+            foodItems
+        });
+
+    } catch (err) {
+        console.error("Error fetching saved food:", err);
+
+        res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+}
 
 module.exports={
   createFood,
@@ -227,6 +252,7 @@ module.exports={
   deleteFood,
   likeFood,
   saveFood,
+  getSavedFood,
   getPublicFoodItems,
   getFoodById
 }
