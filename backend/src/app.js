@@ -42,7 +42,14 @@ app.use('/videos', express.static(path.join(__dirname, '../../videos')));
 
 app.get("/",(req,res)=>{
     res.send("Hello World");
-})
+});
+app.get("/test", (req, res) => {
+    res.send("TEST ROUTE WORKING");
+});
+
+app.get("/api/test", (req, res) => {
+    res.send("API TEST WORKING");
+});
 
 app.use('/api/auth',authRoutes);
 app.use('/api/food',foodRoutes);
